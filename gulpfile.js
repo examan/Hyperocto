@@ -10,7 +10,7 @@ gulp.task('default', function () {
 
   return merge(
 
-    gulp.src('src/**/*.js')
+    gulp.src(['src/**/*.js', '!src/lib/browser-polyfill.js'])
       .pipe(eslint())
       .pipe(eslint.formatEach())
       .pipe(eslint.failAfterError()),

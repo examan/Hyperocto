@@ -82,14 +82,28 @@ function openSimilarLinks (targetLink, mode) {
   })
 }
 
-function messageGetHandler (message, sender, sendResponse) {
+function messageGetLinksHandler (message, sender, sendResponse) {
   openSimilarLinks(document.activeElement, message.mode)
+}
+
+let openedTabIds = []
+function messageTabOpenedHandler (message, sender, sendResponse) {
+  openedTabIds.push(message.tabId)
+
+  browser.runtime.sendMessage({
+    'type': MESSAGETYPE.SETOPENEDTABCOUNT,
+    'count': openedTabIds.length
+  })
 }
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.type) {
     case MESSAGETYPE.GETLINKS:
-      messageGetHandler.call(this, message, sender, sendResponse)
+      messageGetLinksHandler.call(this, message, sender, sendResponse)
+      break
+    case MESSAGETYPE.TABOPENED:
+      messageTabOpenedHandler.call(this, message, sender, sendResponse)
+      break
   }
 
   return true

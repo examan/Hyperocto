@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Hyperocto",
   "short_name": "Hyperocto",
-  "version": "1.0.12",
+  "version": "1.0.13",
 
   "default_locale": "en",
   "description": "__MSG_MANIFEST_DESCRIPTION__",
@@ -38,6 +38,10 @@
       ]
     }
   ],
+
+  "page_action":  {
+    "default_popup": "html/page_action_popup.html"
+  },
 
   "permissions": [
     "contextMenus",

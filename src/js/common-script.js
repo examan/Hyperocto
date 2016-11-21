@@ -11,7 +11,9 @@
 
   let MESSAGETYPE = enumerationBuilder([
     'GETLINKS',
-    'OPENLINKS'
+    'OPENLINKS',
+    'TABOPENED',
+    'SETOPENEDTABCOUNT'
   ])
 
   let GETMODE = {

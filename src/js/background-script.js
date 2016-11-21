@@ -40,24 +40,53 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
   }
 })
 
-function messageOpenHandler (message, sender, sendResponse) {
+function messageOpenLinksHandler (message, sender, sendResponse) {
   message.urls.forEach((url, index) => {
-    setTimeout(
-      param => browser.tabs.create(param),
-      0,
-      {
-        'url': url,
-        'index': sender.tab.index + index + 1,
-        'active': false
-      }
-    )
+    let param = {
+      'url': url,
+      'index': sender.tab.index + index + 1,
+      'active': false
+    }
+
+    setTimeout(() => {
+      browser.tabs.create(param).then(tab => {
+        browser.tabs.sendMessage(
+          sender.tab.id,
+          {
+            'type': MESSAGETYPE.TABOPENED,
+            'tabId': tab.id
+          },
+          {
+            frameId: sender.frameId
+          }
+        )
+      })
+    }, 0)
   })
+}
+
+function messageSetOpenedTabCountHandler (message, sender, sendResponse) {
+  /*
+  TODO: complete this function, currently the polyfill doesn't work correctly for pageAction.hide/pageAction.show
+
+  let tabId = sender.tab.id
+  let count = message.count
+
+  if (count === 0) {
+    browser.pageAction.hide(tabId)
+  } else {
+    browser.pageAction.show(tabId)
+  }
+  */
 }
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.type) {
     case MESSAGETYPE.OPENLINKS:
-      messageOpenHandler.call(this, message, sender, sendResponse)
+      messageOpenLinksHandler.call(this, message, sender, sendResponse)
+      break
+    case MESSAGETYPE.SETOPENEDTABCOUNT:
+      messageSetOpenedTabCountHandler.call(this, message, sender, sendResponse)
       break
   }
 

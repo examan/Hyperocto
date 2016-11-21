@@ -1,11 +1,12 @@
-/* webextension-polyfill - v0.1.0 - Sat Nov 19 2016 14:18:30 */
+/* webextension-polyfill - v0.1.0 - Tue Nov 22 2016 00:35:07 */
 /* -*- Mode: indent-tabs-mode: nil; js-indent-level: 2 -*- */
 /* vim: set sts=2 sw=2 et tw=80: */
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-if (typeof browser === 'undefined') {
+
+if (typeof browser === "undefined") {
   // Wrapping the bulk of this polyfill in a one-time-use function is a minor
   // optimization for Firefox. Since Spidermonkey does not fully parse the
   // contents of a function until the first time it's called, and since it will
@@ -13,517 +14,517 @@ if (typeof browser === 'undefined') {
   // in Firefox nearly for free.
   const wrapAPIs = () => {
     const apiMetadata = {
-      'alarms': {
-        'clear': {
-          'minArgs': 0,
-          'maxArgs': 1
+      "alarms": {
+        "clear": {
+          "minArgs": 0,
+          "maxArgs": 1
         },
-        'clearAll': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "clearAll": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'get': {
-          'minArgs': 0,
-          'maxArgs': 1
+        "get": {
+          "minArgs": 0,
+          "maxArgs": 1
         },
-        'getAll': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getAll": {
+          "minArgs": 0,
+          "maxArgs": 0
         }
       },
-      'bookmarks': {
-        'create': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "bookmarks": {
+        "create": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'export': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "export": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'get': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "get": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getChildren': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "getChildren": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getRecent': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "getRecent": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getTree': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getTree": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'getSubTree': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "getSubTree": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'import': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "import": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'move': {
-          'minArgs': 2,
-          'maxArgs': 2
+        "move": {
+          "minArgs": 2,
+          "maxArgs": 2
         },
-        'remove': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "remove": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'removeTree': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "removeTree": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'search': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "search": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'update': {
-          'minArgs': 2,
-          'maxArgs': 2
+        "update": {
+          "minArgs": 2,
+          "maxArgs": 2
         }
       },
-      'browserAction': {
-        'getBadgeBackgroundColor': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "browserAction": {
+        "getBadgeBackgroundColor": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getBadgeText': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "getBadgeText": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getPopup': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "getPopup": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getTitle': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "getTitle": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'setIcon': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "setIcon": {
+          "minArgs": 1,
+          "maxArgs": 1
         }
       },
-      'commands': {
-        'getAll': {
-          'minArgs': 0,
-          'maxArgs': 0
+      "commands": {
+        "getAll": {
+          "minArgs": 0,
+          "maxArgs": 0
         }
       },
-      'contextMenus': {
-        'update': {
-          'minArgs': 2,
-          'maxArgs': 2
+      "contextMenus": {
+        "update": {
+          "minArgs": 2,
+          "maxArgs": 2
         },
-        'remove': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "remove": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'removeAll': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "removeAll": {
+          "minArgs": 0,
+          "maxArgs": 0
         }
       },
-      'cookies': {
-        'get': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "cookies": {
+        "get": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getAll': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "getAll": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getAllCookieStores': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getAllCookieStores": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'remove': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "remove": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'set': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "set": {
+          "minArgs": 1,
+          "maxArgs": 1
         }
       },
-      'downloads': {
-        'download': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "downloads": {
+        "download": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'cancel': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "cancel": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'erase': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "erase": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getFileIcon': {
-          'minArgs': 1,
-          'maxArgs': 2
+        "getFileIcon": {
+          "minArgs": 1,
+          "maxArgs": 2
         },
-        'open': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "open": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'pause': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "pause": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'removeFile': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "removeFile": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'resume': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "resume": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'search': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "search": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'show': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "show": {
+          "minArgs": 1,
+          "maxArgs": 1
         }
       },
-      'extension': {
-        'isAllowedFileSchemeAccess': {
-          'minArgs': 0,
-          'maxArgs': 0
+      "extension": {
+        "isAllowedFileSchemeAccess": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'isAllowedIncognitoAccess': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "isAllowedIncognitoAccess": {
+          "minArgs": 0,
+          "maxArgs": 0
         }
       },
-      'history': {
-        'addUrl': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "history": {
+        "addUrl": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getVisits': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "getVisits": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'deleteAll': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "deleteAll": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'deleteRange': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "deleteRange": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'deleteUrl': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "deleteUrl": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'search': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "search": {
+          "minArgs": 1,
+          "maxArgs": 1
         }
       },
-      'i18n': {
-        'detectLanguage': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "i18n": {
+        "detectLanguage": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getAcceptLanguages': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getAcceptLanguages": {
+          "minArgs": 0,
+          "maxArgs": 0
         }
       },
-      'idle': {
-        'queryState': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "idle": {
+        "queryState": {
+          "minArgs": 1,
+          "maxArgs": 1
         }
       },
-      'management': {
-        'get': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "management": {
+        "get": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getAll': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getAll": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'getSelf': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getSelf": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'uninstallSelf': {
-          'minArgs': 0,
-          'maxArgs': 1
+        "uninstallSelf": {
+          "minArgs": 0,
+          "maxArgs": 1
         }
       },
-      'notifications': {
-        'clear': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "notifications": {
+        "clear": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'create': {
-          'minArgs': 1,
-          'maxArgs': 2
+        "create": {
+          "minArgs": 1,
+          "maxArgs": 2
         },
-        'getAll': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getAll": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'getPermissionLevel': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getPermissionLevel": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'update': {
-          'minArgs': 2,
-          'maxArgs': 2
+        "update": {
+          "minArgs": 2,
+          "maxArgs": 2
         }
       },
-      'pageAction': {
-        'getPopup': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "pageAction": {
+        "getPopup": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getTitle': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "getTitle": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'hide': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "hide": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'setIcon': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "setIcon": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'show': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "show": {
+          "minArgs": 1,
+          "maxArgs": 1
         }
       },
-      'runtime': {
-        'getBackgroundPage': {
-          'minArgs': 0,
-          'maxArgs': 0
+      "runtime": {
+        "getBackgroundPage": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'getBrowserInfo': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getBrowserInfo": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'getPlatformInfo': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getPlatformInfo": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'openOptionsPage': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "openOptionsPage": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'requestUpdateCheck': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "requestUpdateCheck": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'sendMessage': {
-          'minArgs': 1,
-          'maxArgs': 3
+        "sendMessage": {
+          "minArgs": 1,
+          "maxArgs": 3
         },
-        'sendNativeMessage': {
-          'minArgs': 2,
-          'maxArgs': 2
+        "sendNativeMessage": {
+          "minArgs": 2,
+          "maxArgs": 2
         },
-        'setUninstallURL': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "setUninstallURL": {
+          "minArgs": 1,
+          "maxArgs": 1
         }
       },
-      'storage': {
-        'local': {
-          'clear': {
-            'minArgs': 0,
-            'maxArgs': 0
+      "storage": {
+        "local": {
+          "clear": {
+            "minArgs": 0,
+            "maxArgs": 0
           },
-          'get': {
-            'minArgs': 0,
-            'maxArgs': 1
+          "get": {
+            "minArgs": 0,
+            "maxArgs": 1
           },
-          'getBytesInUse': {
-            'minArgs': 0,
-            'maxArgs': 1
+          "getBytesInUse": {
+            "minArgs": 0,
+            "maxArgs": 1
           },
-          'remove': {
-            'minArgs': 1,
-            'maxArgs': 1
+          "remove": {
+            "minArgs": 1,
+            "maxArgs": 1
           },
-          'set': {
-            'minArgs': 1,
-            'maxArgs': 1
+          "set": {
+            "minArgs": 1,
+            "maxArgs": 1
           }
         },
-        'managed': {
-          'get': {
-            'minArgs': 0,
-            'maxArgs': 1
+        "managed": {
+          "get": {
+            "minArgs": 0,
+            "maxArgs": 1
           },
-          'getBytesInUse': {
-            'minArgs': 0,
-            'maxArgs': 1
+          "getBytesInUse": {
+            "minArgs": 0,
+            "maxArgs": 1
           }
         },
-        'sync': {
-          'clear': {
-            'minArgs': 0,
-            'maxArgs': 0
+        "sync": {
+          "clear": {
+            "minArgs": 0,
+            "maxArgs": 0
           },
-          'get': {
-            'minArgs': 0,
-            'maxArgs': 1
+          "get": {
+            "minArgs": 0,
+            "maxArgs": 1
           },
-          'getBytesInUse': {
-            'minArgs': 0,
-            'maxArgs': 1
+          "getBytesInUse": {
+            "minArgs": 0,
+            "maxArgs": 1
           },
-          'remove': {
-            'minArgs': 1,
-            'maxArgs': 1
+          "remove": {
+            "minArgs": 1,
+            "maxArgs": 1
           },
-          'set': {
-            'minArgs': 1,
-            'maxArgs': 1
+          "set": {
+            "minArgs": 1,
+            "maxArgs": 1
           }
         }
       },
-      'tabs': {
-        'create': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "tabs": {
+        "create": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'captureVisibleTab': {
-          'minArgs': 0,
-          'maxArgs': 2
+        "captureVisibleTab": {
+          "minArgs": 0,
+          "maxArgs": 2
         },
-        'detectLanguage': {
-          'minArgs': 0,
-          'maxArgs': 1
+        "detectLanguage": {
+          "minArgs": 0,
+          "maxArgs": 1
         },
-        'duplicate': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "duplicate": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'executeScript': {
-          'minArgs': 1,
-          'maxArgs': 2
+        "executeScript": {
+          "minArgs": 1,
+          "maxArgs": 2
         },
-        'get': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "get": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getCurrent': {
-          'minArgs': 0,
-          'maxArgs': 0
+        "getCurrent": {
+          "minArgs": 0,
+          "maxArgs": 0
         },
-        'getZoom': {
-          'minArgs': 0,
-          'maxArgs': 1
+        "getZoom": {
+          "minArgs": 0,
+          "maxArgs": 1
         },
-        'getZoomSettings': {
-          'minArgs': 0,
-          'maxArgs': 1
+        "getZoomSettings": {
+          "minArgs": 0,
+          "maxArgs": 1
         },
-        'highlight': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "highlight": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'insertCSS': {
-          'minArgs': 1,
-          'maxArgs': 2
+        "insertCSS": {
+          "minArgs": 1,
+          "maxArgs": 2
         },
-        'move': {
-          'minArgs': 2,
-          'maxArgs': 2
+        "move": {
+          "minArgs": 2,
+          "maxArgs": 2
         },
-        'reload': {
-          'minArgs': 0,
-          'maxArgs': 2
+        "reload": {
+          "minArgs": 0,
+          "maxArgs": 2
         },
-        'remove': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "remove": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'query': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "query": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'removeCSS': {
-          'minArgs': 1,
-          'maxArgs': 2
+        "removeCSS": {
+          "minArgs": 1,
+          "maxArgs": 2
         },
-        'sendMessage': {
-          'minArgs': 2,
-          'maxArgs': 3
+        "sendMessage": {
+          "minArgs": 2,
+          "maxArgs": 3
         },
-        'setZoom': {
-          'minArgs': 1,
-          'maxArgs': 2
+        "setZoom": {
+          "minArgs": 1,
+          "maxArgs": 2
         },
-        'setZoomSettings': {
-          'minArgs': 1,
-          'maxArgs': 2
+        "setZoomSettings": {
+          "minArgs": 1,
+          "maxArgs": 2
         },
-        'update': {
-          'minArgs': 1,
-          'maxArgs': 2
+        "update": {
+          "minArgs": 1,
+          "maxArgs": 2
         }
       },
-      'webNavigation': {
-        'getAllFrames': {
-          'minArgs': 1,
-          'maxArgs': 1
+      "webNavigation": {
+        "getAllFrames": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'getFrame': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "getFrame": {
+          "minArgs": 1,
+          "maxArgs": 1
         }
       },
-      'webRequest': {
-        'handlerBehaviorChanged': {
-          'minArgs': 0,
-          'maxArgs': 0
+      "webRequest": {
+        "handlerBehaviorChanged": {
+          "minArgs": 0,
+          "maxArgs": 0
         }
       },
-      'windows': {
-        'create': {
-          'minArgs': 0,
-          'maxArgs': 1
+      "windows": {
+        "create": {
+          "minArgs": 0,
+          "maxArgs": 1
         },
-        'get': {
-          'minArgs': 1,
-          'maxArgs': 2
+        "get": {
+          "minArgs": 1,
+          "maxArgs": 2
         },
-        'getAll': {
-          'minArgs': 0,
-          'maxArgs': 1
+        "getAll": {
+          "minArgs": 0,
+          "maxArgs": 1
         },
-        'getCurrent': {
-          'minArgs': 0,
-          'maxArgs': 1
+        "getCurrent": {
+          "minArgs": 0,
+          "maxArgs": 1
         },
-        'getLastFocused': {
-          'minArgs': 0,
-          'maxArgs': 1
+        "getLastFocused": {
+          "minArgs": 0,
+          "maxArgs": 1
         },
-        'remove': {
-          'minArgs': 1,
-          'maxArgs': 1
+        "remove": {
+          "minArgs": 1,
+          "maxArgs": 1
         },
-        'update': {
-          'minArgs': 2,
-          'maxArgs': 2
+        "update": {
+          "minArgs": 2,
+          "maxArgs": 2
         }
       }
-    }
+    };
 
     /**
      * A WeakMap subclass which creates and stores a value for any key which does
@@ -536,17 +537,17 @@ if (typeof browser === 'undefined') {
      *        function receives, as its only argument, the key being created.
      */
     class DefaultWeakMap extends WeakMap {
-      constructor (createItem, items = undefined) {
-        super(items)
-        this.createItem = createItem
+      constructor(createItem, items = undefined) {
+        super(items);
+        this.createItem = createItem;
       }
 
-      get (key) {
+      get(key) {
         if (!this.has(key)) {
-          this.set(key, this.createItem(key))
+          this.set(key, this.createItem(key));
         }
 
-        return super.get(key)
+        return super.get(key);
       }
     }
 
@@ -558,8 +559,8 @@ if (typeof browser === 'undefined') {
      * @returns {boolean} True if the value is thenable.
      */
     const isThenable = value => {
-      return value && typeof value === 'object' && typeof value.then === 'function'
-    }
+      return value && typeof value === "object" && typeof value.then === "function";
+    };
 
     /**
      * Creates and returns a function which, when called, will resolve or reject
@@ -586,14 +587,14 @@ if (typeof browser === 'undefined') {
     const makeCallback = promise => {
       return (...callbackArgs) => {
         if (chrome.runtime.lastError) {
-          promise.reject(chrome.runtime.lastError)
+          promise.reject(chrome.runtime.lastError);
         } else if (callbackArgs.length === 1) {
-          promise.resolve(callbackArgs[0])
+          promise.resolve(callbackArgs[0]);
         } else {
-          promise.resolve(callbackArgs)
+          promise.resolve(callbackArgs);
         }
-      }
-    }
+      };
+    };
 
     /**
      * Creates a wrapper function for a method with the given name and metadata.
@@ -615,22 +616,22 @@ if (typeof browser === 'undefined') {
      *       The generated wrapper function.
      */
     const wrapAsyncFunction = (name, metadata) => {
-      const pluralizeArguments = (numArgs) => numArgs === 1 ? 'argument' : 'arguments'
+      const pluralizeArguments = (numArgs) => numArgs == 1 ? "argument" : "arguments";
 
-      return function asyncFunctionWrapper (target, ...args) {
+      return function asyncFunctionWrapper(target, ...args) {
         if (args.length < metadata.minArgs) {
-          throw new Error(`Expected at least ${metadata.minArgs} ${pluralizeArguments(metadata.minArgs)} for ${name}(), got ${args.length}`)
+          throw new Error(`Expected at least ${metadata.minArgs} ${pluralizeArguments(metadata.minArgs)} for ${name}(), got ${args.length}`);
         }
 
         if (args.length > metadata.maxArgs) {
-          throw new Error(`Expected at most ${metadata.maxArgs} ${pluralizeArguments(metadata.maxArgs)} for ${name}(), got ${args.length}`)
+          throw new Error(`Expected at most ${metadata.maxArgs} ${pluralizeArguments(metadata.maxArgs)} for ${name}(), got ${args.length}`);
         }
 
         return new Promise((resolve, reject) => {
-          target[name](...args, makeCallback({resolve, reject}))
-        })
-      }
-    }
+          target[name](...args, makeCallback({resolve, reject}));
+        });
+      };
+    };
 
     /**
      * Wraps an existing method of the target object, so that calls to it are
@@ -653,13 +654,13 @@ if (typeof browser === 'undefined') {
      */
     const wrapMethod = (target, method, wrapper) => {
       return new Proxy(method, {
-        apply (targetMethod, thisObj, args) {
-          return wrapper.call(thisObj, target, ...args)
-        }
-      })
-    }
+        apply(targetMethod, thisObj, args) {
+          return wrapper.call(thisObj, target, ...args);
+        },
+      });
+    };
 
-    let hasOwnProperty = Function.call.bind(Object.prototype.hasOwnProperty)
+    let hasOwnProperty = Function.call.bind(Object.prototype.hasOwnProperty);
 
     /**
      * Wraps an object in a Proxy which intercepts and wraps certain methods
@@ -685,89 +686,89 @@ if (typeof browser === 'undefined') {
      * @returns {Proxy<object>}
      */
     const wrapObject = (target, wrappers = {}, metadata = {}) => {
-      let cache = Object.create(null)
+      let cache = Object.create(null);
 
       let handlers = {
-        has (target, prop) {
-          return prop in target || prop in cache
+        has(target, prop) {
+          return prop in target || prop in cache;
         },
 
-        get (target, prop, receiver) {
+        get(target, prop, receiver) {
           if (prop in cache) {
-            return cache[prop]
+            return cache[prop];
           }
 
           if (!(prop in target)) {
-            return undefined
+            return undefined;
           }
 
-          let value = target[prop]
+          let value = target[prop];
 
-          if (typeof value === 'function') {
+          if (typeof value === "function") {
             // This is a method on the underlying object. Check if we need to do
             // any wrapping.
 
-            if (typeof wrappers[prop] === 'function') {
+            if (typeof wrappers[prop] === "function") {
               // We have a special-case wrapper for this method.
-              value = wrapMethod(target, target[prop], wrappers[prop])
+              value = wrapMethod(target, target[prop], wrappers[prop]);
             } else if (hasOwnProperty(metadata, prop)) {
               // This is an async method that we have metadata for. Create a
               // Promise wrapper for it.
-              let wrapper = wrapAsyncFunction(prop, metadata[prop])
-              value = wrapMethod(target, target[prop], wrapper)
+              let wrapper = wrapAsyncFunction(prop, metadata[prop]);
+              value = wrapMethod(target, target[prop], wrapper);
             } else {
               // This is a method that we don't know or care about. Return the
               // original method, bound to the underlying object.
-              value = value.bind(target)
+              value = value.bind(target);
             }
-          } else if (typeof value === 'object' && value !== null &&
+          } else if (typeof value === "object" && value !== null &&
                      (hasOwnProperty(wrappers, prop) ||
                       hasOwnProperty(metadata, prop))) {
             // This is an object that we need to do some wrapping for the children
             // of. Create a sub-object wrapper for it with the appropriate child
             // metadata.
-            value = wrapObject(value, wrappers[prop], metadata[prop])
+            value = wrapObject(value, wrappers[prop], metadata[prop]);
           } else {
             // We don't need to do any wrapping for this property,
             // so just forward all access to the underlying object.
             Object.defineProperty(cache, prop, {
               configurable: true,
               enumerable: true,
-              get () {
-                return target[prop]
+              get() {
+                return target[prop];
               },
-              set (value) {
-                target[prop] = value
-              }
-            })
+              set(value) {
+                target[prop] = value;
+              },
+            });
 
-            return value
+            return value;
           }
 
-          cache[prop] = value
-          return value
+          cache[prop] = value;
+          return value;
         },
 
-        set (target, prop, value, receiver) {
+        set(target, prop, value, receiver) {
           if (prop in cache) {
-            cache[prop] = value
+            cache[prop] = value;
           } else {
-            target[prop] = value
+            target[prop] = value;
           }
-          return true
+          return true;
         },
 
-        defineProperty (target, prop, desc) {
-          return Reflect.defineProperty(cache, prop, desc)
+        defineProperty(target, prop, desc) {
+          return Reflect.defineProperty(cache, prop, desc);
         },
 
-        deleteProperty (target, prop) {
-          return Reflect.deleteProperty(cache, prop)
-        }
-      }
+        deleteProperty(target, prop) {
+          return Reflect.deleteProperty(cache, prop);
+        },
+      };
 
-      return new Proxy(target, handlers)
-    }
+      return new Proxy(target, handlers);
+    };
 
     /**
      * Creates a set of wrapper functions for an event object, which handles
@@ -786,22 +787,22 @@ if (typeof browser === 'undefined') {
      * @returns {object}
      */
     const wrapEvent = wrapperMap => ({
-      addListener (target, listener, ...args) {
-        target.addListener(wrapperMap.get(listener), ...args)
+      addListener(target, listener, ...args) {
+        target.addListener(wrapperMap.get(listener), ...args);
       },
 
-      hasListener (target, listener) {
-        return target.hasListener(wrapperMap.get(listener))
+      hasListener(target, listener) {
+        return target.hasListener(wrapperMap.get(listener));
       },
 
-      removeListener (target, listener) {
-        target.removeListener(wrapperMap.get(listener))
-      }
-    })
+      removeListener(target, listener) {
+        target.removeListener(wrapperMap.get(listener));
+      },
+    });
 
     const onMessageWrappers = new DefaultWeakMap(listener => {
-      if (typeof listener !== 'function') {
-        return listener
+      if (typeof listener !== "function") {
+        return listener;
       }
 
       /**
@@ -821,30 +822,30 @@ if (typeof browser === 'undefined') {
        *        True if the wrapped listener returned a Promise, which will later
        *        yield a response. False otherwise.
        */
-      return function onMessage (message, sender, sendResponse) {
-        let result = listener(message, sender)
+      return function onMessage(message, sender, sendResponse) {
+        let result = listener(message, sender);
 
         if (isThenable(result)) {
           result.then(sendResponse, error => {
-            console.error(error)
-            sendResponse(error)
-          })
+            console.error(error);
+            sendResponse(error);
+          });
 
-          return true
+          return true;
         } else if (result !== undefined) {
-          sendResponse(result)
+          sendResponse(result);
         }
-      }
-    })
+      };
+    });
 
     const staticWrappers = {
       runtime: {
-        onMessage: wrapEvent(onMessageWrappers)
-      }
-    }
+        onMessage: wrapEvent(onMessageWrappers),
+      },
+    };
 
-    return wrapObject(chrome, staticWrappers, apiMetadata)
-  }
+    return wrapObject(chrome, staticWrappers, apiMetadata);
+  };
 
-  this.browser = wrapAPIs()
+  this.browser = wrapAPIs();
 }
